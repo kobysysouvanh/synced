@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 
 export default function Home() {
   return (
-    <div className="w-full h-screen flex flex-col">
+    <div className="w-full min-h-screen flex flex-col">
       <Header />
       <div className="flex flex-1 flex-col items-center text-center font-semibold mt-50 space-y-4">
         <h1 className="text-5xl">Love, Synced</h1>
