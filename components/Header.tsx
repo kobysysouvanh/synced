@@ -4,6 +4,7 @@ import { Button } from "./ui/button";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { UserRound } from "lucide-react";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -18,10 +19,6 @@ const Header = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const handleLoginClick = () => {
-    router.push("/sign-in");
-  };
 
   return (
     <div
@@ -52,8 +49,23 @@ const Header = () => {
         </SignedOut>
         <SignedIn>
           <UserButton
-            showName
-          />
+            appearance={{
+              elements: {
+                avatarBox: {
+                  width: "2.5rem",
+                  height: "2.5rem",
+                },
+              },
+            }}
+          >
+            <UserButton.MenuItems>
+              <UserButton.Action
+                label="My Profile"
+                labelIcon={<UserRound className="w-4 h-4" />}
+                onClick={() => router.push("/profile")}
+              />
+            </UserButton.MenuItems>
+          </UserButton>
         </SignedIn>
       </div>
     </div>

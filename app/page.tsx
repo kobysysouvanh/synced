@@ -1,7 +1,12 @@
+"use client"
+
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter()
+
   return (
     <div className="w-full min-h-screen flex flex-col">
       <Header />
@@ -14,7 +19,7 @@ export default function Home() {
           <br />
           Synced helps you connect and create everlasting memories.
         </p>
-        <Button size={"lg"} className="mt-6">
+        <Button size={"lg"} className="mt-6" onClick={() => router.push('/sign-up')}>
           Start Your Story
         </Button>
       </div>
