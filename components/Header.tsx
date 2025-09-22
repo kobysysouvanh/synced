@@ -28,7 +28,7 @@ const Header = () => {
         <h1 className="font-bold text-4xl tracking-[60%] text-neutral-900">
           SYNCED
         </h1>
-        <div className="flex space-x-2">
+        <div className="hidden sm:inline-block space-x-2">
           <Button
             variant={"ghost"}
             className="hover:bg-transparent"
