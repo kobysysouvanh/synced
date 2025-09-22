@@ -2,9 +2,12 @@
 
 import { Button } from "./ui/button";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,6 +18,10 @@ const Header = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleLoginClick = () => {
+    router.push("/sign-in");
+  };
 
   return (
     <div
@@ -28,16 +35,26 @@ const Header = () => {
         <h1 className="font-bold text-4xl tracking-[60%] text-neutral-900">
           SYNCED
         </h1>
-        <div className="hidden sm:inline-block space-x-2">
-          <Button
-            variant={"ghost"}
-            className="hover:bg-transparent"
-            size={"lg"}
-          >
-            Sign Up
-          </Button>
-          <Button size={"lg"}>Log In</Button>
-        </div>
+        <SignedOut>
+          <div className="hidden sm:inline-block space-x-2">
+            <Button
+              variant={"ghost"}
+              className="hover:bg-transparent"
+              size={"lg"}
+              onClick={() => router.push("/sign-up")}
+            >
+              Sign Up
+            </Button>
+            <Button size={"lg"} onClick={() => router.push("/sign-in")}>
+              Log In
+            </Button>
+          </div>
+        </SignedOut>
+        <SignedIn>
+          <UserButton
+            showName
+          />
+        </SignedIn>
       </div>
     </div>
   );
