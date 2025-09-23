@@ -18,7 +18,6 @@ model Profile {
   updatedAt  DateTime @updatedAt @map("updated_at")
   
   // Relations
-  preferences     UserPreferences?
   couplesAsUser1  Couple[] @relation("User1Couples")
   couplesAsUser2  Couple[] @relation("User2Couples")
   connectionCodes ConnectionCode[] // Add this line
@@ -26,17 +25,7 @@ model Profile {
   @@map("profiles")
 }
 
-model UserPreferences {
-  id           String  @id @default(cuid())
-  userId       String  @unique @map("user_id")
-  theme        String  @default("light")
-  notifications Boolean @default(true)
-  
-  // Relations
-  user Profile @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
-  @@map("user_preferences")
-}
+
 
 
 model Date {

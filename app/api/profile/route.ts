@@ -71,12 +71,7 @@ export async function POST(request: Request) {
     await UserService.syncUserFromClerk()
 
     // ===== STEP 4: Update user preferences if provided =====
-    if (theme !== undefined || notifications !== undefined) {
-      await UserService.updateUserPreferences({
-        theme,
-        notifications,
-      })
-    }
+
 
     // ===== STEP 5: Return updated profile =====
     const updatedProfile = await UserService.getCurrentUserProfile()

@@ -32,9 +32,7 @@ export class UserService {
     // Try to get existing profile
     let profile = await prisma.profile.findUnique({
       where: { id: userId },
-      include: {
-        preferences: true,
-      },
+
     })
 
     // If no profile exists, create one
@@ -44,9 +42,7 @@ export class UserService {
         // Fetch the profile again with preferences
         profile = await prisma.profile.findUnique({
           where: { id: userId },
-          include: {
-            preferences: true,
-          },
+
         })
       }
     }
@@ -54,23 +50,6 @@ export class UserService {
     return profile
   }
 
-  // Update user preferences
-  static async updateUserPreferences(preferences: {
-    theme?: string
-    notifications?: boolean
-  }) {
-    const { userId } = await auth()
-    if (!userId) throw new Error('Unauthorized')
-
-    return await prisma.userPreferences.upsert({
-      where: { userId },
-      update: preferences,
-      create: {
-        userId,
-        ...preferences,
-      },
-    })
-  }
 
   // Checks if Current User is Coupled
 static async isUserCoupled(): Promise<boolean> {
