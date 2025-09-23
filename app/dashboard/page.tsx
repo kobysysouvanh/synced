@@ -66,7 +66,7 @@ const Dashboard = () => {
     return () => {
       supabase.removeChannel(channel)
     }
-  }, [user?.id])
+  }, [user?.id, user, fetchCoupleStatus()])
 
   if (!user) {
     return (

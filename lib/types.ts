@@ -17,14 +17,14 @@ export interface ConnectionCodeRecord {
 
 export interface SupabaseRealtimePayload {
   eventType: 'INSERT' | 'UPDATE' | 'DELETE'
-  new: Record<string, any> | null
-  old: Record<string, any> | null
+  new: Record<string, unknown> | null
+  old: Record<string, unknown> | null
   schema: string
   table: string
 }
 
 // Generic payload interface for typed payloads
-export interface SupabasePayload<T = Record<string, any>> {
+export interface SupabasePayload<T = Record<string, unknown>> {
   eventType: 'INSERT' | 'UPDATE' | 'DELETE'
   new: T | null
   old: T | null

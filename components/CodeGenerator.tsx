@@ -142,7 +142,7 @@ export function CodeGenerator() {
     return () => {
       supabase.removeChannel(channel)
     }
-  }, [user?.id, isActive])
+  }, [user?.id, isActive, user])
 
   // Timer and code regeneration effect
   useEffect(() => {
