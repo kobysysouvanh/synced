@@ -2,56 +2,93 @@ import { prisma } from '@/lib/db/client'
 import { currentUser } from '@clerk/nextjs/server'
 import { NextResponse } from 'next/server'
 
+/**
+ * POST /api/couples/code - Generate a connection code for coupling
+ * 
+ * This endpoint generates a unique 5-character code that expires in 30 seconds.
+ * Another user can use this code to connect and form a couple relationship.
+ * 
+ * @returns Generated connection code
+ */
 export async function POST() {
   try {
-    const user = await currentUser()
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    // ===== STEP 1: Authenticate the user =====
+    const authenticatedUser = await currentUser()
+    if (!authenticatedUser) {
+      return NextResponse.json(
+        { error: 'You must be logged in to generate a connection code' }, 
+        { status: 401 }
+      )
     }
 
-    // Generate 5-character code
-    const generateCode = () => {
-      const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
-      let result = ''
+    // ===== STEP 2: Define code generation function =====
+    const generateUniqueCode = (): string => {
+      // Use characters that are easy to read and distinguish
+      const allowedCharacters = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
+      let generatedCode = ''
+      
       for (let i = 0; i < 5; i++) {
-        result += chars.charAt(Math.floor(Math.random() * chars.length))
+        const randomIndex = Math.floor(Math.random() * allowedCharacters.length)
+        generatedCode += allowedCharacters.charAt(randomIndex)
       }
-      return result
+      
+      return generatedCode
     }
 
-    let code = generateCode()
-    
-    // Ensure code is unique
-    let attempts = 0
-    while (attempts < 10) {
-      const existing = await prisma.connectionCode.findUnique({
-        where: { code }
+    // ===== STEP 3: Generate unique code (avoid duplicates) =====
+    let connectionCode = generateUniqueCode()
+    let generationAttempts = 0
+    const maxAttempts = 10
+
+    while (generationAttempts < maxAttempts) {
+      const existingCode = await prisma.connectionCode.findUnique({
+        where: { code: connectionCode }
       })
-      if (!existing) break
-      code = generateCode()
-      attempts++
+      
+      if (!existingCode) {
+        break // Code is unique, we can use it
+      }
+      
+      connectionCode = generateUniqueCode()
+      generationAttempts++
     }
 
-    // Delete any existing codes for this user
+    if (generationAttempts >= maxAttempts) {
+      return NextResponse.json(
+        { error: 'Unable to generate unique code. Please try again.' },
+        { status: 500 }
+      )
+    }
+
+    // ===== STEP 4: Clean up old codes for this user =====
     await prisma.connectionCode.deleteMany({
-      where: { userId: user.id }
+      where: { userId: authenticatedUser.id }
     })
 
-    // Create new connection code (expires in 30 seconds)
-    const connectionCode = await prisma.connectionCode.create({
+    // ===== STEP 5: Create new connection code =====
+    const codeExpirationTime = new Date(Date.now() + 30 * 1000) // 30 seconds from now
+    
+    const newConnectionCode = await prisma.connectionCode.create({
       data: {
-        code,
-        userId: user.id,
-        expiresAt: new Date(Date.now() + 30 * 1000), // 30 seconds from now
+        code: connectionCode,
+        userId: authenticatedUser.id,
+        expiresAt: codeExpirationTime,
       }
     })
 
-    return NextResponse.json({ code: connectionCode.code })
+    // ===== STEP 6: Return the connection code =====
+    return NextResponse.json({ 
+      success: true,
+      code: newConnectionCode.code,
+      expiresAt: codeExpirationTime.toISOString(),
+      expiresInSeconds: 30,
+      message: 'Connection code generated successfully. Share this code with your partner!'
+    })
 
   } catch (error) {
-    console.error('Error generating code:', error)
+    console.error('❌ Error generating connection code:', error)
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: 'Failed to generate connection code. Please try again.' },
       { status: 500 }
     )
   }
