@@ -97,6 +97,7 @@ export function CodeGenerator() {
       }
     } catch (error) {
       setMessage("❌ Connection failed");
+      console.log(error)
     } finally {
       setLoading(false);
     }
@@ -230,7 +231,7 @@ export function CodeGenerator() {
       {/* Enter Code Section */}
       <div>
         <h3 className="text-lg font-semibold mb-4 text-center">
-          Enter Partner's Code
+          {`Enter Partner's Code`}
         </h3>
 
         <form onSubmit={handleCodeSubmit} className="space-y-4">
