@@ -24,7 +24,7 @@ const Dashboard = async () => {
 
             {/* Couple Info */}
             <div className="bg-white rounded-lg shadow p-6">
-                <h2 className="text-xl font-semibold mb-4">💕 You're Coupled Up!</h2>
+                <h2 className="text-xl font-semibold mb-4">{`💕 You're Coupled Up!`}</h2>
                 <div className="space-y-2">
                     <p><strong>Partner:</strong> {coupleData?.partner?.firstName} {coupleData?.partner?.lastName}</p>
                     <p><strong>Email:</strong> {coupleData?.partner?.email}</p>
