@@ -1,0 +1,85 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// Example models for your Synced app
+model Profile {
+  id         String   @id // Clerk user ID
+  email      String   @unique
+  firstName  String?  @map("first_name")
+  lastName   String?  @map("last_name")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+  
+  // Relations
+  preferences     UserPreferences?
+  couplesAsUser1  Couple[] @relation("User1Couples")
+  couplesAsUser2  Couple[] @relation("User2Couples")
+  connectionCodes ConnectionCode[] // Add this line
+  
+  @@map("profiles")
+}
+
+model UserPreferences {
+  id           String  @id @default(cuid())
+  userId       String  @unique @map("user_id")
+  theme        String  @default("light")
+  notifications Boolean @default(true)
+  
+  // Relations
+  user Profile @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("user_preferences")
+}
+
+
+model Date {
+  id          String   @id @default(cuid())
+  coupleId    String   @map("couple_id")
+  title       String
+  description String?
+  date        DateTime
+  location    String?
+  status      String   @default("planned") // planned, completed, cancelled
+  createdAt   DateTime @default(now()) @map("created_at")
+  
+  // Relations
+  couple Couple @relation(fields: [coupleId], references: [id], onDelete: Cascade)
+  
+  @@map("dates")
+}
+
+model Couple {
+  id        String   @id @default(cuid())
+  user1Id   String   @map("user1_id")
+  user2Id   String   @map("user2_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  
+  // Relations - both users properly referenced
+  user1 Profile @relation("User1Couples", fields: [user1Id], references: [id], onDelete: Cascade)
+  user2 Profile @relation("User2Couples", fields: [user2Id], references: [id], onDelete: Cascade)
+  dates Date[]
+  
+  @@unique([user1Id, user2Id])
+  @@map("couples")
+}
+
+
+model ConnectionCode {
+  id        String   @id @default(cuid())
+  code      String   @unique
+  userId    String   @map("user_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  expiresAt DateTime @map("expires_at")
+  
+  // Relations
+  user Profile @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("connection_codes")
+}

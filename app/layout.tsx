@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Lato } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
+import { UserSyncProvider } from "@/components/UserSyncProvider";
 
 const lato = Lato({
   variable: "--font-lato",
@@ -24,7 +25,9 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={`${lato.variable} antialiased`}>
-          <Background>{children}</Background>
+          <UserSyncProvider>
+            <Background>{children}</Background>
+          </UserSyncProvider>
         </body>
       </html>
     </ClerkProvider>
