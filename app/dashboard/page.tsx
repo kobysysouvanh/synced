@@ -14,7 +14,12 @@ const Dashboard = () => {
   const [coupleData, setCoupleData] = useState<CoupleData | null>(null)
   const [loading, setLoading] = useState(true)
 
-  const fetchCoupleStatus = async () => {
+  
+
+  useEffect(() => {
+    if (!user) return
+
+    const fetchCoupleStatus = async () => {
     if (!user) return
 
     try {
@@ -29,9 +34,6 @@ const Dashboard = () => {
       setLoading(false)
     }
   }
-
-  useEffect(() => {
-    if (!user) return
 
     // Initial fetch
     fetchCoupleStatus()
@@ -66,7 +68,7 @@ const Dashboard = () => {
     return () => {
       supabase.removeChannel(channel)
     }
-  }, [user?.id, user, fetchCoupleStatus()])
+  }, [user])
 
   if (!user) {
     return (
