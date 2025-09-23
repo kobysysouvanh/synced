@@ -11,6 +11,7 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp"
+import { SupabaseRealtimePayload } from "@/lib/types";
 
 export function CodeGenerator() {
   const { user } = useUser()
@@ -124,7 +125,7 @@ export function CodeGenerator() {
           schema: 'public',
           table: 'couples'
         },
-        (payload : any) => {
+        (payload: SupabaseRealtimePayload) => {
           // Check if this user was involved in the coupling
           const record = payload.new
           if (record && record.user1_id === user.id) {

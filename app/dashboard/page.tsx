@@ -6,7 +6,7 @@ import { supabase } from '@/lib/db/supabase'
 import { CodeGenerator } from "@/components/CodeGenerator"
 import { DecoupleButton } from "@/components/DecoupleButton"
 import { SignOutButton } from "@clerk/nextjs"
-import { CoupleData } from '@/lib/types'
+import { CoupleData, SupabaseRealtimePayload } from '@/lib/types'
 
 const Dashboard = () => {
   const { user } = useUser()
@@ -46,7 +46,7 @@ const Dashboard = () => {
           schema: 'public',
           table: 'couples'
         },
-        async (payload: any) => {
+        async (payload: SupabaseRealtimePayload) => {
           // Check if this change affects the current user
           const record = payload.new || payload.old
           if (record && (record.user1_id === user.id || record.user2_id === user.id)) {

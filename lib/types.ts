@@ -15,13 +15,21 @@ export interface ConnectionCodeRecord {
   created_at: string
 }
 
+export interface SupabaseRealtimePayload {
+  eventType: 'INSERT' | 'UPDATE' | 'DELETE'
+  new: Record<string, any> | null
+  old: Record<string, any> | null
+  schema: string
+  table: string
+}
+
+// Generic payload interface for typed payloads
 export interface SupabasePayload<T = Record<string, any>> {
   eventType: 'INSERT' | 'UPDATE' | 'DELETE'
   new: T | null
   old: T | null
   schema: string
   table: string
-  commit_timestamp: string
 }
 
 // Specific payload types
