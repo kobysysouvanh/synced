@@ -3,18 +3,25 @@
 import { Check, Copy } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { toast } from "sonner";
+import { useUser } from '@clerk/nextjs'
+import { supabase } from '@/lib/db/supabase'
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSlot,
+} from "@/components/ui/input-otp"
 
 export function CodeGenerator() {
+  const { user } = useUser()
   const [code, setCode] = useState<string>("");
   const [timeLeft, setTimeLeft] = useState<number>(30);
   const [isActive, setIsActive] = useState<boolean>(false);
   const [copied, setCopied] = useState<boolean>(false);
 
-  // Input field states
-  const [inputCode, setInputCode] = useState<string>("");
+  // OTP Input states
+  const [otpValue, setOtpValue] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const [message, setMessage] = useState<string>("");
 
   // Generate a random 5-character code
   const generateCode = () => {
@@ -41,9 +48,11 @@ export function CodeGenerator() {
         setIsActive(true);
       } else {
         console.error("Error generating code:", data.error);
+        toast.error(data.error || "Failed to generate code");
       }
     } catch (error) {
       console.error("Error generating code:", error);
+      toast.error("Failed to generate code");
     }
   };
 
@@ -65,53 +74,74 @@ export function CodeGenerator() {
     }
   };
 
-  // Handle input code submission
+  // Handle form submission
   const handleCodeSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (inputCode.length !== 5) {
-      setMessage("❌ Code must be 5 characters");
+    
+    if (otpValue.length !== 5) {
+      toast.error("Please enter all 5 characters");
       return;
     }
 
     setLoading(true);
-    setMessage("");
 
     try {
       const response = await fetch("/api/couples/connect", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ code: inputCode.toUpperCase() }),
+        body: JSON.stringify({ code: otpValue.toUpperCase() }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        setMessage("✅ Connected successfully!");
-        setInputCode("");
-        // Redirect or refresh after successful connection
+        toast.success("Coupled Successfully! 🎉");
+        setOtpValue("");
         setTimeout(() => {
           window.location.reload();
         }, 2000);
       } else {
-        setMessage(`❌ ${data.error || "Connection failed"}`);
+        toast.error(`${data.error || "Coupling failed"}`);
       }
     } catch (error) {
-      setMessage("❌ Connection failed");
-      console.log(error)
+      toast.error("Coupling failed");
+      console.log(error);
     } finally {
       setLoading(false);
     }
   };
 
-  // Handle input change (uppercase, letters/numbers only, max 5 chars)
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value
-      .toUpperCase()
-      .replace(/[^A-Z0-9]/g, "")
-      .slice(0, 5);
-    setInputCode(value);
-    setMessage(""); // Clear message when typing
-  };
+  // Real-time coupling detection for code generator
+  useEffect(() => {
+    if (!user || !isActive) return
+
+    const channel = supabase
+      .channel('coupling_detection')
+      .on(
+        'postgres_changes',
+        {
+          event: 'INSERT',
+          schema: 'public',
+          table: 'couples'
+        },
+        (payload : any) => {
+          // Check if this user was involved in the coupling
+          const record = payload.new
+          if (record && record.user1_id === user.id) {
+            console.log('Got coupled as code generator!', payload)
+            toast.success("You've been coupled! 🎉")
+            setTimeout(() => {
+              window.location.reload()
+            }, 2000)
+          }
+        }
+      )
+      .subscribe()
+
+    return () => {
+      supabase.removeChannel(channel)
+    }
+  }, [user?.id, isActive])
 
   // Timer and code regeneration effect
   useEffect(() => {
@@ -121,9 +151,8 @@ export function CodeGenerator() {
       interval = setInterval(() => {
         setTimeLeft((prevTime) => {
           if (prevTime <= 1) {
-            // Generate new code when timer reaches 0
             setCode(generateCode());
-            return 30; // Reset timer
+            return 30;
           }
           return prevTime - 1;
         });
@@ -136,6 +165,7 @@ export function CodeGenerator() {
   }, [isActive]);
 
   const progressPercentage = (timeLeft / 30) * 100;
+  const isOtpComplete = otpValue.length === 5;
 
   return (
     <div className="bg-white rounded-lg shadow-lg p-6 max-w-md mx-auto space-y-6">
@@ -228,41 +258,44 @@ export function CodeGenerator() {
         )}
       </div>
 
-      {/* Enter Code Section */}
+      {/* Enter Code Section - OTP Style */}
       <div>
         <h3 className="text-lg font-semibold mb-4 text-center">
           {`Enter Partner's Code`}
         </h3>
 
-        <form onSubmit={handleCodeSubmit} className="space-y-4">
-          <div>
-            <Input
-              type="text"
-              value={inputCode}
-              onChange={handleInputChange}
-              placeholder="AB3K9"
-              className="text-2xl font-mono text-center tracking-widest uppercase"
+        <form onSubmit={handleCodeSubmit} className="space-y-6">
+          {/* OTP Input */}
+          <div className="flex justify-center">
+            <InputOTP
               maxLength={5}
-            />
+              value={otpValue}
+              onChange={(value) => setOtpValue(value.toUpperCase())}
+              pattern="[A-Z0-9]*"
+            >
+              <InputOTPGroup>
+                <InputOTPSlot index={0} className="w-12 h-12 text-xl border-gray-400 focus:border-purple-500" />
+                <InputOTPSlot index={1} className="w-12 h-12 text-xl border-gray-400 focus:border-purple-500" />
+                <InputOTPSlot index={2} className="w-12 h-12 text-xl border-gray-400 focus:border-purple-500" />
+                <InputOTPSlot index={3} className="w-12 h-12 text-xl border-gray-400 focus:border-purple-500" />
+                <InputOTPSlot index={4} className="w-12 h-12 text-xl border-gray-400 focus:border-purple-500" />
+              </InputOTPGroup>
+            </InputOTP>
           </div>
 
-          <Button
-            type="submit"
-            disabled={loading || inputCode.length !== 5}
-            className="w-full bg-purple-500 hover:bg-purple-600"
-          >
-            {loading ? "Connecting..." : "Connect"}
-          </Button>
-
-          {message && (
-            <p
-              className={`text-sm text-center ${
-                message.includes("✅") ? "text-green-600" : "text-red-600"
-              }`}
-            >
-              {message}
+          <div className="text-center">
+            <p className="text-xs text-gray-500 mb-4">
+              Enter the 5-character code from your partner
             </p>
-          )}
+            
+            <Button
+              type="submit"
+              disabled={loading || !isOtpComplete}
+              className="w-full bg-purple-500 hover:bg-purple-600"
+            >
+              {loading ? "Connecting..." : "Connect"}
+            </Button>
+          </div>
         </form>
       </div>
     </div>
