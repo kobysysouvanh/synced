@@ -1,13 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useUser } from "@clerk/nextjs";
-import { supabase } from "@/lib/db/supabase";
 import { CodeGenerator } from "@/components/CodeGenerator";
 import { DecoupleButton } from "@/components/DecoupleButton";
-import { SignOutButton } from "@clerk/nextjs";
+import { supabase } from "@/lib/db/supabase";
 import { CoupleData, SupabaseRealtimePayload } from "@/lib/types";
-import { Button } from "@/components/ui/button";
+import { useUser } from "@clerk/nextjs";
+import { useEffect, useState } from "react";
 
 const Dashboard = () => {
   const { user } = useUser();

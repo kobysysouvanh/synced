@@ -1,11 +1,10 @@
 import Background from "@/components/Background";
+import { UserSyncProvider } from "@/components/UserSyncProvider";
+import { Toaster } from "@/components/ui/sonner";
+import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { Lato } from "next/font/google";
 import "./globals.css";
-import { ClerkProvider } from "@clerk/nextjs";
-import { UserSyncProvider } from "@/components/UserSyncProvider";
-import { Toaster } from "@/components/ui/sonner";
-import Header from "@/components/Header";
 
 const lato = Lato({
   variable: "--font-lato",
