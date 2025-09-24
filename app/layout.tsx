@@ -5,6 +5,7 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { UserSyncProvider } from "@/components/UserSyncProvider";
 import { Toaster } from "@/components/ui/sonner";
+import Header from "@/components/Header";
 
 const lato = Lato({
   variable: "--font-lato",
@@ -28,9 +29,9 @@ export default function RootLayout({
         <body className={`${lato.variable} antialiased`}>
           <UserSyncProvider>
             <Background>
-              <Toaster/>
+              <Toaster />
               {children}
-              </Background>
+            </Background>
           </UserSyncProvider>
         </body>
       </html>

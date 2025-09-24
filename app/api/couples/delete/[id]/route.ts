@@ -3,7 +3,7 @@ import { currentUser } from '@clerk/nextjs/server'
 import { NextResponse } from 'next/server'
 
 /**
- * DELETE /api/couples/[id] - Delete/Break an existing couple relationship
+ * DELETE /api/couples/delete/[id] - Delete/Break an existing couple relationship
  * 
  * This endpoint allows a user to delete their couple relationship.
  * Only users who are part of the couple can delete it.

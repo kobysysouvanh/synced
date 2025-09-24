@@ -65,6 +65,15 @@ export async function POST() {
       where: { userId: authenticatedUser.id }
     })
 
+    // ===== STEP 4.5: Clean up all expired codes (database maintenance) =====
+    await prisma.connectionCode.deleteMany({
+      where: {
+        expiresAt: {
+          lt: new Date() // Delete all codes that have already expired
+        }
+      }
+    })
+
     // ===== STEP 5: Create new connection code =====
     const codeExpirationTime = new Date(Date.now() + 30 * 1000) // 30 seconds from now
     

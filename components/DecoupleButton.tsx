@@ -23,7 +23,7 @@ export function DecoupleButton({ coupleId, partnerName }: DecoupleButtonProps) {
     setLoading(true)
     
     try {
-      const response = await fetch(`/api/couples/${coupleId}`, {
+      const response = await fetch(`/api/couples/delete/${coupleId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
