@@ -27,7 +27,7 @@ const Header = () => {
     <div
       className='w-full sticky top-0 z-50 bg-white/40 backdrop-blur shadow-lg shadow-black/5'
     >
-      <nav className="h-16 flex justify-between items-center px-6 md:px-8 max-w-[90rem] mx-auto">
+      <nav className="h-16 flex justify-between items-center px-6 md:px-8 max-w-7xl mx-auto">
         <Link href="/" className="flex items-center justify-center gap-3">
           <Logo/>
         </Link>
