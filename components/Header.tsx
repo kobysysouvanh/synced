@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { UserRound } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
+import Logo from "./Logo";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -23,17 +25,11 @@ const Header = () => {
 
   return (
     <div
-      className={`w-full sticky top-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-white/40 backdrop-blur-xl  shadow-lg shadow-black/5"
-          : "bg-transparent"
-      }`}
+      className='w-full sticky top-0 z-50 bg-white/40 backdrop-blur shadow-lg shadow-black/5'
     >
-      <div className="flex justify-between items-center p-4 max-w-[90rem] mx-auto">
-        <Link href="/">
-          <h1 className="font-bold text-4xl tracking-[60%] text-neutral-900">
-            SYNCED
-          </h1>
+      <nav className="h-16 flex justify-between items-center px-6 md:px-8 max-w-[90rem] mx-auto">
+        <Link href="/" className="flex items-center justify-center gap-3">
+          <Logo/>
         </Link>
         <SignedOut>
           <div className="hidden sm:inline-block space-x-2">
@@ -72,7 +68,7 @@ const Header = () => {
             </UserButton>
           </div>
         </SignedIn>
-      </div>
+      </nav>
     </div>
   );
 };

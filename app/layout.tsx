@@ -3,13 +3,12 @@ import { UserSyncProvider } from "@/components/UserSyncProvider";
 import { Toaster } from "@/components/ui/sonner";
 import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
-import { Lato } from "next/font/google";
+import { Inter, Lato, Nunito } from "next/font/google";
 import "./globals.css";
 
-const lato = Lato({
-  variable: "--font-lato",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-  weight: ["400", "700"],
 });
 
 export const metadata: Metadata = {
@@ -25,7 +24,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={`${lato.variable} antialiased`}>
+        <body className={`${inter.variable} antialiased`}>
           <UserSyncProvider>
             <Background>
               <Toaster />
