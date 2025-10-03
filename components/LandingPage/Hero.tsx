@@ -5,7 +5,7 @@ const Hero = () => {
   return (
     <section className="relative">
       <div className="mx-auto max-w-7xl px-6 md:px-8 pt-20 pb-16 md:pt-28 md:pb-24">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 items-center mt-2 sm:mt-0">
           <div>
             <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs text-slate-600">
               <span className="inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500"/>
@@ -39,7 +39,7 @@ const Hero = () => {
 
               </div>
               <div className="grid grid-cols-2 gap-3 mt-4">
-
+                {/* Places */}
                 <div className="rounded-xl border border-slate-200 bg-white p-4 hover:border-slate-300 transition-colors">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
@@ -61,7 +61,7 @@ const Hero = () => {
                     </div>
                   </div>
                 </div>
-
+                {/* Notes */}
                 <div className="rounded-xl border border-slate-200 bg-white p-4 hover:border-slate-300 transition-colors">
                   <div className="flex items-center gap-2">
                     <div className="h-8 w-8 rounded-lg bg-fuchsia-600/15 text-fuchsia-600 ring-1 ring-inset ring-fuchsia-500/20 flex items-center justify-center">
@@ -73,7 +73,7 @@ const Hero = () => {
                     Trip ideas: Lake weekend, moonlight cinema, ramen crawl. Remember to book tickets for Saturday’s show.
                   </p>
                 </div>
-
+                {/* Gallery */}
                 <div className="rounded-xl border border-slate-200 bg-white p-4 hover:border-slate-300 transition-colors col-span-2">
                   <div className="flex items-center gap-2">
                     <div className="h-8 w-8 rounded-lg bg-emerald-600/15 text-emerald-600 ring-1 ring-inset ring-emerald-500/20 flex items-center justify-center">
@@ -89,7 +89,7 @@ const Hero = () => {
                     <img className="h-20 w-full rounded-lg object-cover ring-1 ring-slate-200" src="https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=400&auto=format&fit=crop" alt="gallery 4" />
                   </div>
                 </div>
- 
+                {/* Tasks */}
                 <div className="rounded-xl border border-slate-200 bg-white p-4 hover:border-slate-300 transition-colors">
                   <div className="flex items-center gap-2">
                     <div className="h-8 w-8 rounded-lg bg-sky-600/15 text-sky-600 ring-1 ring-inset ring-sky-500/20 flex items-center justify-center">
@@ -108,7 +108,7 @@ const Hero = () => {
                     </li>
                   </ul>
                 </div>
-
+                {/* Next date */}
                 <div className="rounded-xl border border-slate-200 bg-white p-4 hover:border-slate-300 transition-colors">
                   <div className="flex items-center gap-2">
                     <div className="h-8 w-8 rounded-lg bg-violet-600/15 text-violet-600 ring-1 ring-inset ring-violet-500/20 flex items-center justify-center">
