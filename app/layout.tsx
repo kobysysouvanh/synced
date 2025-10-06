@@ -3,7 +3,7 @@ import { UserSyncProvider } from "@/components/UserSyncProvider";
 import { Toaster } from "@/components/ui/sonner";
 import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
-import { Inter, Lato, Nunito } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({

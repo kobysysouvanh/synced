@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const Testimonials = () => {
   return (
     <section>
@@ -13,10 +15,13 @@ const Testimonials = () => {
         <div className="mt-10 grid md:grid-cols-3 gap-6">
           <div className="rounded-2xl border border-slate-200 bg-white p-6 hover:border-slate-300 transition-colors">
             <div className="flex items-center gap-3">
-              <img
+              <Image
                 className="h-10 w-10 rounded-full ring-2 ring-slate-100 object-cover"
                 src="https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=128&auto=format&fit=crop"
                 alt=""
+                width={40}
+                height={40}
+                unoptimized={true}
               />
               <div>
                 <p className="text-sm font-semibold tracking-tight text-slate-900">
@@ -32,10 +37,13 @@ const Testimonials = () => {
           </div>
           <div className="rounded-2xl border border-slate-200 bg-white p-6 hover:border-slate-300 transition-colors">
             <div className="flex items-center gap-3">
-              <img
+              <Image
                 className="h-10 w-10 rounded-full ring-2 ring-slate-100 object-cover"
                 src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=128&auto=format&fit=crop"
                 alt=""
+                width={40}
+                height={40}
+                unoptimized={true}
               />
               <div>
                 <p className="text-sm font-semibold tracking-tight text-slate-900">
@@ -50,10 +58,13 @@ const Testimonials = () => {
           </div>
           <div className="rounded-2xl border border-slate-200 bg-white p-6 hover:border-slate-300 transition-colors">
             <div className="flex-center gap-3">
-              <img
+              <Image
                 className="h-10 w-10 rounded-full ring-2 ring-slate-100 object-cover"
                 src="https://images.unsplash.com/photo-1546527868-ccb7ee7dfa6a?q=80&w=128&auto=format&fit=crop"
                 alt=""
+                width={40}
+                height={40}
+                unoptimized={true}
               />
               <div>
                 <p className="text-sm font-semibold tracking-tight text-slate-900">

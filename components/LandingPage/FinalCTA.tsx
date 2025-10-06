@@ -1,5 +1,6 @@
-import { Heart, Image, MapPin, NotebookPen } from "lucide-react";
+import { Heart, Image as ImageIcon, MapPin, NotebookPen } from "lucide-react";
 import { Button } from "../ui/button";
+import Image from "next/image";
 
 const FinalCTA = () => {
   return (
@@ -26,15 +27,21 @@ const FinalCTA = () => {
               <div className="absolute -inset-4 blur-2xl bg-gradient-to-tr from-indigo-500/10 to-fuchsia-500/10 rounded-2xl"></div>
               <div className="relative rounded-2xl border border-slate-200 bg-white p-5">
                 <div className="flex items-center gap-3">
-                  <img
+                  <Image
                     src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=128&auto=format&fit=crop"
                     alt=""
+                    width={40}
+                    height={40}
                     className="h-10 w-10 rounded-full ring-2 ring-slate-100 object-cover"
+                    unoptimized={true}
                   />
-                  <img
+                  <Image
                     src="https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=128&auto=format&fit=crop"
                     alt=""
+                    width={40}
+                    height={40}
                     className="h-10 w-10 rounded-full ring-2 ring-slate-100 object-cover"
+                    unoptimized={true}
                   />
                   <div className="rounded-full w-2 h-2 bg-emerald-500"/>
                   <span className="text-sm text-slate-600">Connected</span>
@@ -47,7 +54,7 @@ const FinalCTA = () => {
                     <p className="mt-1">Places</p>
                   </div>
                   <div className="rounded-lg border border-slate-200 p-3 text-xs text-slate-700">
-                    <Image
+                    <ImageIcon
                       className="w-4 h-4 text-emerald-600"
                     />
                     <p className="mt-1">Gallery</p>

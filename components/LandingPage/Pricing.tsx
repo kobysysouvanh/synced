@@ -10,7 +10,7 @@ const Pricing = () => {
             Simple pricing for two
           </h2>
           <p className="mt-3 text-slate-600">
-            Start free. Upgrade whenever you're ready.
+            Start free. Upgrade whenever you&apos;re ready.
           </p>
           <div className="mt-4 rounded-full bg-slate-50 ring-1 ring-inset ring-slate-200 p-3 text-xs text-slate-500">
             Tip: Only one of you needs to upgrade to Pro for both to enjoy the

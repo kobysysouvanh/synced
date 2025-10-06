@@ -4,12 +4,13 @@ import {
   Flower2,
   Gift,
   Heart,
-  Image,
+  Image as ImageIcon,
   ListTodo,
   MessageCircle,
   Plane,
   Utensils,
 } from "lucide-react";
+import Image from "next/image";
 
 const LivePreview = () => {
   return (
@@ -64,20 +65,29 @@ const LivePreview = () => {
                 Weekend getaway: cabins, brunch spots, scenic drives.
               </p>
               <div className="mt-3 grid grid-cols-3 gap-2">
-                <img
+                <Image
                   src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=400&auto=format&fit=crop"
                   className="h-20 w-full rounded-lg object-cover ring-1 ring-slate-200"
                   alt=""
+                  width={80}
+                  height={64}
+                  unoptimized={true}
                 />
-                <img
+                <Image
                   src="https://images.unsplash.com/photo-1602002418816-5c0aeef426aa?q=80&w=400&auto=format&fit=crop"
                   className="h-20 w-full rounded-lg object-cover ring-1 ring-slate-200"
                   alt=""
+                  width={80}
+                  height={64}
+                  unoptimized={true}
                 />
-                <img
+                <Image
                   src="https://images.unsplash.com/photo-1445363692815-ebcd599f7621?q=80&w=400&auto=format&fit=crop"
                   className="h-20 w-full rounded-lg object-cover ring-1 ring-slate-200"
                   alt=""
+                  width={80}
+                  height={64}
+                  unoptimized={true}
                 />
               </div>
             </div>
@@ -157,27 +167,36 @@ const LivePreview = () => {
             <div className="rounded-2xl border border-slate-200 bg-white p-5 hover:border-slate-300 transition-colors">
               <div className="flex items-center gap-2">
                 <div className="h-8 w-8 rounded-lg bg-emerald-600/15 text-emerald-600 ring-1 ring-emerald-500/20 flex items-center justify-center">
-                  <Image className="w-4 h-4" />
+                  <ImageIcon className="w-4 h-4" />
                 </div>
                 <h3 className="text-sm font-semibold tracking-tight text-slate-900">
                   Photo Gallery
                 </h3>
               </div>
               <div className="mt-3 grid grid-cols-3 gap-2">
-                <img
+                <Image
                   src="https://images.unsplash.com/photo-1617657172340-15a0fabc3605?q=80&w=400&auto=format&fit=crop"
                   className="h-20 w-full rounded-lg object-cover ring-1 ring-slate-200"
                   alt=""
+                  width={80}
+                  height={64}
+                  unoptimized={true}
                 />
-                <img
+                <Image
                   src="https://images.unsplash.com/photo-1581888227599-779811939961?q=80&w=400&auto=format&fit=crop"
                   className="h-20 w-full rounded-lg object-cover ring-1 ring-slate-200"
                   alt=""
+                  width={80}
+                  height={64}
+                  unoptimized={true}
                 />
-                <img
+                <Image
                   src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?q=80&w=400&auto=format&fit=crop"
                   className="h-20 w-full rounded-lg object-cover ring-1 ring-slate-200"
                   alt=""
+                  width={80}
+                  height={64}
+                  unoptimized={true}
                 />
               </div>
             </div>
