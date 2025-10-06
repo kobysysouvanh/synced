@@ -69,7 +69,6 @@ const Testimonials = () => {
           </div>
         </div>
       </div>
-      <div className="h-px w-full bg-slate-300/80"></div>
     </section>
   );
 };

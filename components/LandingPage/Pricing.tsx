@@ -46,12 +46,12 @@ const Pricing = () => {
               </li>
             </ul>
             <Button variant={"outline"} className="hover:border-slate-300">
-              Get started
+              Get Started
             </Button>
           </div>
           {/* Pro */}
           <div className="rounded-2xl border border-slate-200 bg-white p-6 hover:border-fuchsia-500/50 transition-colors relative flex flex-col">
-            <div className="absolute -top-3 right-4 inline-flex items-center gap-1 rounded-full bg-indigo-600 text-white px-2 py-0.5 text-[11px] shadow-sm">
+            <div className="absolute -top-[10px] right-4 inline-flex items-center gap-1 rounded-full bg-indigo-600 text-white px-2 py-0.5 text-[11px] shadow-sm">
               <Star data-lucide="star" className="w-3.5 h-3.5" />
               Most popular
             </div>
@@ -66,8 +66,7 @@ const Pricing = () => {
             </p>
             <ul className="mt-5 space-y-2 text-sm text-slate-700 flex-1">
               <li className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-fuchsia-600" /> Unlimited photos
-                & notes
+                <Check className="w-4 h-4 text-fuchsia-600" /> Unlimited photos, notes, tasks
               </li>
               <li className="flex items-center gap-2">
                 <Check className="w-4 h-4 text-fuchsia-600" /> Multiple
@@ -85,7 +84,6 @@ const Pricing = () => {
           </div>
         </div>
       </div>
-      <div className="h-px w-full bg-slate-300/80"></div>
     </section>
   );
 };

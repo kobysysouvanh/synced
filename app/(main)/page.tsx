@@ -16,7 +16,7 @@ export default function Home() {
   const router = useRouter();
 
   return (
-    <div className="w-full flex-1 flex flex-col">
+    <div className="w-full flex-1 flex flex-col pt-8">
       <Hero/>
       <Features/>
       <HowItWorks/>

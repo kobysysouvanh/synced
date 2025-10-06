@@ -12,12 +12,11 @@ import {
   MapPin,
   NotebookText,
   PenLine,
-  Scale,
+  PiggyBank,
   Smile,
   Sparkles,
   Star,
-  ThumbsUp,
-  Wallet,
+  ThumbsUp
 } from "lucide-react";
 
 const Features = () => {
@@ -137,14 +136,14 @@ const Features = () => {
           <div className="group rounded-2xl border border-slate-200 bg-white p-6 hover:border-slate-300 transition-colors flex flex-col">
             <div className="flex items-center gap-3">
               <div className="h-10 w-10 rounded-xl bg-amber-600/15 text-amber-600 ring-1 ring-inset ring-amber-500/20 flex items-center justify-center">
-                <Wallet className="w-5 h-5" />
+                <PiggyBank className="w-5 h-5" />
               </div>
               <h3 className="text-lg font-semibold tracking-tight text-slate-900">
-                Budget trips
+                Shared budget
               </h3>
             </div>
             <p className="mt-3 text-sm text-slate-600 flex-1">
-              Plan trips together and track your savings towards it.
+              Track expenses for trips, date nights, and more.
             </p>
             <div className="mt-4 flex items-center gap-2 text-xs text-slate-500">
               <Sparkles className="w-4 h-4" />
@@ -211,7 +210,6 @@ const Features = () => {
           </div>
         </div>
       </div>
-      <div className="h-px w-full bg-slate-300/80"></div>
     </section>
   );
 };
